@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <!--estilo da página-->
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        thead tr td {
+            background-color: rgb(190, 196, 196);
+        }
+        tr td {
+            border: solid 1px black;
+            padding: 0px;
+            width: 120px;
+        }
+        tr a {
+            text-decoration: none;
+            color: black;
+        }
+        tr a:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    {% if message %}
+    <div>{{message}}</div>
+    {% endif %}
+    <h1>Lista de Livros</h1>
+    <a href="/livros/novo">Novo</a>
+    <!--Esta é a view do MVC onde o usuário irá interagir-->
+    <!-- Lista contendo o conteúdo do Array, podendo escolher se que altera,inserir ou excluir
+    mostra 2 principios do SOLID
+    responsabilidade única: irá mostrar as informações ao usuário
+    segregação das interfaces: interface menos robusta e fácil de entender
+    -->
+    <table>
+        <thead>
+            <tr>
+                <td>Código</td>
+                <td>Título</td>
+                <td>Alugado</td>
+                <td>Ações</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros %}
+            <tr>
+                <!--Mostra o ID do livro-->
+                <td>{{ livro.id }}</td>
+                <!--Mostra o titulo do livro-->
+                <td>{{ livro.title }}</td>
+                <td>
+                    <!--Mostra se está alugado o livro-->
+                    {% if livro.alugado == true %}
+                    Sim
+                    {% else %}
+                    Não
+                    {% endif %}
+                </td>
+                <!--Mostra os botões para excluir, alterar o livro-->
+                <td><a href="/livros/{{livro.id}}">Editar</a> / <a href="/livros/{{livro.id}}/remove">Excluir</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <!--Mostra se não tem livro cadastrado-->
+                <td colspan="4">
+                    Não existem livros cadastrada
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

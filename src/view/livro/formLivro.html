@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <!--Estilo da página-->
+    <style>
+        body {
+            margin-left: 30px;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 250px;
+        }
+
+        .txaDescription {
+            width: 250px;
+            height: 100px;
+        }
+
+        .cboxCompleted {
+            margin: 0px;
+            width: 10px;
+        }
+
+        .btnSalvar {
+            background-color: rgb(64, 64, 252);
+            color: white;
+            border: 0px;
+            width: 120px;
+            height: 25px;
+        }
+
+        .btnCancelar {
+            background-color: rgb(187, 187, 185);
+            border: 0px;
+            width: 120px;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    {% if message %}
+    <div>{{ message }}</div>
+    {% endif %}
+    <h1>Formulário de Tarefas</h1>
+    <a href="/livros">Tabela de Livros</a>
+    <!--Esta é a view do MVC onde o usuário irá interagir-->
+    <!-- Formulário onde vai inserir ou alterar informações
+    este arquivo está relacionada com a view
+    nela tem 2 principios
+    responsabilidade única: irá mostrar as informações ao usuário
+    segregação das interfaces: interface menos robusta e fácil de entender
+    -->
+    <form action="/livros/{{livro.id}}" method="post">
+        <!--ou Mostra ou adiciona o ID automaticamente-->
+        <div>
+            <label>Id</label>
+            <input class="iptId" readonly value="{{livro.id}}" name="id" />
+        </div>
+        <!--Mostra, insere ou altera o título -->
+        <div>
+            <label>Título</label>
+            <input class="iptTitle" value="{{livro.title}}" name="title" />
+        </div>
+        <!--Mostra, insere ou altera o autor -->
+        <div>
+            <label>Autor</label>
+            <input class="iptAutor" value="{{livro.autor}}" name="autor" />
+        </div>
+        <!--Mostra, insere ou altera o descrição -->
+        <div>
+            <label>Desicrição</label>
+            <textarea class="txaDescription" name="descricao" cols="20" rows="2">{{livro.descricao}}</textarea>
+        </div>
+        <!--marcar o checkbox para alugado, se não estiver alugado não marcar o checkbox -->
+        <div style="display: flex; flex-direction: row;">
+            {% if livro.alugado == true %}
+            <input class="cboxCompleted" type="checkbox" name="alugado" id="completed" checked />
+            {% else %}
+            <input class="cboxCompleted" type="checkbox" name="alugado" id="completed" />
+            {% endif %}
+            <label for="completed">Alugado</label>
+        </div>
+        <!--Salva ou cancela alguma alteração-->
+        <div style="display: flex; flex-direction: row;">
+            <button class="btnSalvar" type="submit">Salvar</button>
+            <button class="btnCancelar" type="reset">Cancelar</button>
+        </div>
+    </form>
+</body>
+
+</html>
