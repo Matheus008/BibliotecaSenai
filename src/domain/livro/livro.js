@@ -1,11 +1,18 @@
+//Abstração
+class Objeto{
+    constructor(id, descricao){
+        this.id = id;
+        this.descricao = descricao;
+    }
+}
+
 //cria a classe Livro
 //esta classe tem o principio da responsabilidade unica pois ela serve só para criar o objeto Livro
-class Livro {
+class Livro extends Objeto{
     constructor(id, title, autor, descricao, alugado) {
-        this.id = id;
+        super(id, descricao);
         this.title = title;
         this.autor = autor;
-        this.descricao = descricao;
         this.alugado = alugado;
     }
 }
