@@ -1,3 +1,4 @@
+//Principio da inversão de dependencia
 //Abstração
 class Objeto{
     constructor(id, descricao){
